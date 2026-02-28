@@ -9,11 +9,21 @@ export const getFavorites = async (skip, limit, search, sort) => {
   });
 
   const res = await fetch(`${API}/favorites?${params}`);
-  return res.json();
+  return await res.json();
 };
 
-export const like = (id) =>
-  fetch(`${API}/favorites/${id}/like`, { method: "POST" });
+export const createFavorite = async (title, description) => {
+  const res = await fetch(`${API}/favorites`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title, description }),
+  });
 
-export const dislike = (id) =>
-  fetch(`${API}/favorites/${id}/dislike`, { method: "POST" });
+  if (!res.ok) {
+    throw new Error("Ошибка создания");
+  }
+
+  return await res.json();
+};
