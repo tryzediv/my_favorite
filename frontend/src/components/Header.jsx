@@ -25,8 +25,9 @@ export default function Header({ search, setSearch, sort, setSort, onAdd }) {
           onChange={(e) => setSort(e.target.value)}
           className="appearance-none px-6 py-2 rounded-full border bg-white pr-10 focus:ring-2 focus:ring-indigo-400 transition"
         >
-          <option value="az">A-Z</option>
-          <option value="za">Z-A</option>
+          <option value="new">Новые</option>
+          <option value="az">А-Я</option>
+          <option value="za">Я-А</option>
           <option value="rating">По рейтингу</option>
         </select>
 

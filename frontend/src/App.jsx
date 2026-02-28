@@ -10,7 +10,7 @@ export default function App() {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("az");
+  const [sort, setSort] = useState("new");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ export default function ItemCard({ item, reload }) {
   const rating = item.likes - item.dislikes;
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 transition duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="bg-white rounded-2xl shadow-md p-6 transition duration-300 hover:scale-200 hover:shadow-xl">
       <h2 className="text-xl font-bold text-indigo-700">
         {item.title}
       </h2>
