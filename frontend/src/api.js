@@ -1,7 +1,7 @@
 const API =
   window.location.hostname === "localhost"
     ? "http://localhost:8000"
-    : "http://backend:8000";
+    : "http://89.110.103.68:8000";
 
 /* ---------- GET ---------- */
 export const getFavorites = async (skip, limit, search, sort) => {
