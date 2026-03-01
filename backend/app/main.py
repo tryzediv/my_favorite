@@ -49,6 +49,7 @@ def get_all(
     sort: str = "new",
     db: Session = Depends(get_db),
 ):
+    """Получить все карточки"""
     query = db.query(Favorite)
 
     if search:
@@ -71,11 +72,28 @@ def get_all(
 
 @app.post("/favorites", response_model=FavoriteResponse)
 def create(item: FavoriteSchema, db: Session = Depends(get_db)):
+    """Создание карточки"""
     db_item = Favorite(**item.model_dump())
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
     return db_item
+
+@app.put("/favorites/{favorite_id}", response_model=FavoriteResponse)
+def update_favorite(favorite_id: int, item: FavoriteSchema, db: Session = Depends(get_db)):
+    """Обновление данных существующей карточки"""
+    favorite = db.query(Favorite).filter(Favorite.id == favorite_id).first()
+    
+    if not favorite:
+        raise HTTPException(status_code=404, detail="Favorite not found")
+    
+    favorite.title = item.title
+    favorite.description = item.description
+    
+    db.commit()
+    db.refresh(favorite)
+    
+    return favorite
 
 @app.post("/favorites/{id}/like")
 def like_favorite(id: int, db: Session = Depends(get_db)):
@@ -114,6 +132,7 @@ def dislike_favorite(id: int, db: Session = Depends(get_db)):
 
 @app.delete("/favorites/{favorite_id}")
 def delete_favorite(favorite_id: int, db: Session = Depends(get_db)):
+    """Удаление карточки"""
     favorite = db.query(Favorite).filter(Favorite.id == favorite_id).first()
 
     if not favorite:
